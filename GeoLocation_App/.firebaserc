@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "geolocation-6742c": {
+      "hosting": {
+        "GApp": [
+          "geolocation-6742c"
+        ]
+      }
+    }
+  }
+}

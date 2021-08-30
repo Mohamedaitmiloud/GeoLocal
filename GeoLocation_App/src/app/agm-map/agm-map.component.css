@@ -1,0 +1,12 @@
+
+.map-bg
+{
+    background-image: url('../../assets/images/gallery/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+agm-map {
+    height: 450px;
+    width:  100%;
+  }

@@ -1,0 +1,69 @@
+
+<div class="container">
+  
+  <div class="bnt-Panell">
+    <div class="col-lg-8 col-lg-offset-2 centered">
+      <div style="float: left">
+        <h3>Find your location</h3>
+
+  <div class="form-group">
+    <label style="color:rgb(25, 25, 70)"><b>Enter address</b></label>
+    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"  
+    placeholder="Search Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" 
+    #origin>
+  </div>
+  <div class="form-group">
+    <label style="color:rgb(25, 25, 70)" > <strong>Enter your destination</strong></label>
+    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" 
+    placeholder="type your destination" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" 
+    #destination></div>
+  <br>
+  <div class="bnt-Panel">
+     
+    <b> Travel Mode : </b> <!-- (change)="modeSelect($event, mode)  -->
+    <div class="selectform">
+    <form [formGroup]="modeSelection">
+      <div class="form-group">
+        <select class="form-control" (change)="onChange(mode)" formControlName="mode">
+          <option *ngFor="let option of options" [value]=option.value>{{option.label}}</option>
+       </select>
+      </div>
+      <div *ngIf="mode.touched">
+        <small *ngIf="mode.errors.required" class="text-danger">mode selection is required</small></div>
+    </form><br></div>
+  <br><br>
+  <p id="distanceMode"  ><i>the distance in Km based on Travel Mode : </i><b> {{distanceMode}} </b></p>
+  
+  <button type="button" class="btn " (click)="getDistance()" >getDistance</button>
+  <button type="button" class="btn" (click)="setPolyline()">addLine</button>
+  <button type="button" class="btn" (click)="setRoute()" >displayRoute</button>
+  <button type="button" class="btn" (click)="DrawingManager()">addPolygone</button><br>
+  <button type="button" class="btn" (click)="deleteMarker()" >removeMarkers</button>   </div><br><br><br>
+  <div class="form-group row">
+    
+</div>
+
+      </div>
+      <div style="float: right; border: 1px solid;width: 227px; height: 50px;">
+        <agm-map id="map"  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapClick)="mapClick($event)"
+   (mapReady)="mapReady($event)">
+    
+    <agm-marker *ngFor="let m of marker , let index= i "
+    [latitude]="m.lat" [longitude]="m.lng" [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m,$event)" [iconUrl]="m.iconUrl?m.iconUrl:''"></agm-marker>  
+    </agm-map>
+    <div class="dist-info">
+      <p id="distance" ><i>the absolute distance in km : </i><b> {{test}}</b></p>
+      <h5>Address: {{address}}</h5>
+    <div>Latitude: {{latitude}}</div>
+    <div>Longitude: {{longitude}}</div>
+  
+    </div>
+      </div>
+  </div>
+     
+   
+  </div>
+    
+
+  

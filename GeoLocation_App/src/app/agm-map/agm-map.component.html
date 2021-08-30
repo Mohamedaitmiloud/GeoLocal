@@ -1,0 +1,96 @@
+<div class="container map-bg">
+  <div class="col s12"><h3>FIND YOUR LOCATION</h3></div>
+        <div class="col s6">
+                  <div id="placeholder" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <input placeholder="Enter a location" id="ea" type="text" (keydown.enter)="$event.preventDefault()"  
+                            autocorrect="off" autocapitalize="off" spellcheck="off" 
+                            #origin>
+                            <label for="ea">Enter address</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <input placeholder="Enter a location" id="ds" type="text" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" 
+                            #destination>
+                            <label for="ds">Enter your destination</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <div>
+                                <form [formGroup]="modeSelection">
+                                  <div class="form-group">
+                                    <select id="travelmode" placeholder="" class="browser-default" id="travelmode"(change)="onChange(mode)" formControlName="mode">
+                                      <option *ngFor="let option of options" [value]=option.value>{{option.label}}</option>
+                                   </select>
+                                  </div>
+                                  <div *ngIf="mode.touched">
+                                    <small *ngIf="mode.errors.required" class="text-danger">mode selection is required</small></div>
+                                </form>
+                            </div>
+                            <label for="travelmode">Travel Mode :</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <p id="distanceMode"  ><i>the distance in Km based on Travel Mode : </i><b> {{distanceMode}} </b></p>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="gradient-45deg-purple-deep-orange btn gradient-shadow" style="margin: 5px;" (click)="getDistance()" >getDistance</button>
+                            <button type="button" class="gradient-45deg-purple-deep-orange btn gradient-shadow" style="margin: 5px;" (click)="setPolyline()">addLine</button>
+                            <button type="button" class="gradient-45deg-purple-deep-orange btn gradient-shadow" style="margin: 5px;" (click)="setRoute()" >displayRoute</button>
+                            <button type="button" class="gradient-45deg-purple-deep-orange btn gradient-shadow" style="margin: 5px;" (click)="DrawingManager()">addPolygone</button><br>
+                            <button type="button" class="gradient-45deg-purple-deep-orange btn gradient-shadow" style="margin: 5px;" (click)="deleteMarker()" >removeMarkers</button>  
+                        </div>
+                        
+
+                    </div>
+                  </div>
+
+
+        
+
+    
+
+      </div>
+      <div class="col s6">
+
+        <div  class="z-depth-2" >
+          <agm-map  id="map"  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapClick)="mapClick($event)"
+     (mapReady)="mapReady($event)">
+      
+      <agm-marker *ngFor="let m of marker , let index= i "
+      [latitude]="m.lat" [longitude]="m.lng" [markerDraggable]="m.draggable"
+        (dragEnd)="markerDragEnd(m,$event)" [iconUrl]="m.iconUrl?m.iconUrl:''"></agm-marker>  
+      </agm-map>
+
+    </div>
+    <div>
+      <table class="bordered z-depth-2">
+        <thead>
+        <tr>
+          <th>The absolute distance in km :</th>
+          <th>Address:</th>
+          <th>Latitude:</th>
+          <th>Longitude::</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td id="distance" ><blockquote>{{test}}</blockquote></td>
+          <td><blockquote>{{address}}</blockquote></td>
+          <td><blockquote>{{latitude}}</blockquote></td>
+          <td><blockquote>{{longitude}}</blockquote></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+        
+
+      </div>
+
+</div>
